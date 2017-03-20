@@ -1,0 +1,25 @@
+{
+  "name": "The Hunt",
+  "description": "secret",
+  "slug": "the-hunt",
+  "privacy": "unlisted",
+  "version": "0.0.0",
+  "sdkVersion": "15.0.0",
+  "orientation": "portrait",
+  "primaryColor": "#cccccc",
+  "icon": "./assets/icons/logo.png",
+  "notification": {
+    "icon": "./assets/icons/logo.png",
+    "color": "#000000"
+  },
+  "loading": {
+    "icon": "./assets/icons/logo.png",
+    "hideExponentText": true
+  },
+  "packagerOpts": {
+    "assetExts": ["ttf"]
+  },
+  "ios": {
+    "supportsTablet": false
+  }
+}
