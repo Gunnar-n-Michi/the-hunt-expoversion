@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import { Components } from 'expo';
-import col from '../constants/colors'
+import Col from '../constants/colors'
 
 export default class MapView extends React.Component {
 
@@ -20,7 +20,6 @@ export default class MapView extends React.Component {
   }
 
   _handlePress = () => {
-    console.log ("A press");
     this.props.navigator.pop();
   }
 }
@@ -28,7 +27,7 @@ export default class MapView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: col.midGrey,
+    backgroundColor: Col.midGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
