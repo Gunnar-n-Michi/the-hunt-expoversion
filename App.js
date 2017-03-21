@@ -1,9 +1,17 @@
 import Expo from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import col from './constants/colors'
+import Col from './constants/colors'
 import Router from './routing/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import * as reducers from './reducers';
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const reducer = combineReducers(reducers);
+const store = createStoreWithMiddleware(reducer);
 
 import {
   createRouter,
@@ -12,9 +20,6 @@ import {
 } from '@expo/ex-navigation';
 
 export default class App extends React.Component {
-  state = {
-    appIsReady: false,
-  };
 
   componentWillMount() {
     this._loadAssetsAsync();
@@ -35,35 +40,39 @@ export default class App extends React.Component {
       );
       console.log(e.message);
     } finally {
-      this.setState({ appIsReady: true });
+      store.dispatch({ type: 'START' })
+
     }
+  }
+
+
+  componentWillUnmount() {
+    console.log ("unmount")
   }
 
   render() {
     return (
-      <View style={styles.container}>
-      {
-        this.state.appIsReady ?
-        (
+      <Provider store={store}>
+        <View style={styles.container}>
+        {
           <NavigationProvider router={Router}>
-            <StackNavigation initialRoute="home" />
+            <StackNavigation initialRoute="sessionView" />
           </NavigationProvider>
-        ) : null
-      }
-      </View>
+        }
+        </View>
+      </Provider>
     );
   }
 
   _handlePress = () => {
-    console.log ("A press")
-    this.props.navigator.push('mapview');
+    this.props.navigator.push('mapView');
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: col.midGrey,
+    backgroundColor: Col.midGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
